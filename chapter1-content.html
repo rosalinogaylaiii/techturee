@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chapter 1: Content</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center p-5 border-b border-gray-600">
+    <a href="index.html" class="text-3xl font-bold cursor-pointer hover:text-gray-400 transition">TECHTURE</a>
+  </header>
+
+  <!-- Lesson Content -->
+  <main class="max-w-lg mx-auto mt-10 space-y-6">
+    <h2 class="text-lg font-semibold bg-gray-700 p-3 rounded-md inline-block">CHAPTER 1 LESSON:</h2>
+
+    <!-- Lesson Blocks -->
+    <div class="space-y-6">
+
+      <div class="bg-gray-800 p-4 rounded-md">
+        <h3 class="text-xl font-bold mb-2">What is the Command Line Interface (CLI)?</h3>
+        <p>The CLI is a powerful interface that allows you to interact with your system through text commands. It's fast, efficient, and gives you control over your machine.</p>
+      </div>
+
+      <div class="bg-gray-800 p-4 rounded-md">
+        <h3 class="text-xl font-bold mb-2">Basic Commands to Practice</h3>
+        <ul class="list-disc ml-5">
+          <li><strong>cd</strong> – Change directory. E.g., <code>cd Documents</code> to enter the Documents folder.</li>
+          <li><strong>dir</strong> – List files and directories in the current directory.</li>
+          <li><strong>mkdir</strong> – Create a new directory. E.g., <code>mkdir new_folder</code> to create a folder.</li>
+          <li><strong>echo</strong> – Display a message. E.g., <code>echo Hello, World!</code></li>
+          <li><strong>cls</strong> – Clear the screen (useful for a clean slate).</li>
+          <li><strong>copy</strong> – Copy files from one location to another. E.g., <code>copy file1.txt file2.txt</code></li>
+          <li><strong>del</strong> – Delete a file. E.g., <code>del file1.txt</code></li>
+          <li><strong>type</strong> – Display the contents of a text file. E.g., <code>type file1.txt</code></li>
+        </ul>
+      </div>
+
+      <div class="bg-gray-800 p-4 rounded-md">
+        <h3 class="text-xl font-bold mb-2">Advanced Commands</h3>
+        <ul class="list-disc ml-5">
+          <li><strong>sfc /scannow</strong> – Scans and repairs corrupted system files.</li>
+          <li><strong>systeminfo</strong> – Gives a detailed system summary.</li>
+          <li><strong>chkdsk</strong> – Checks disk for errors.</li>
+          <li><strong>net user</strong> – Lists users on the system.</li>
+          <li><strong>net user &lt;username&gt;</strong> – Displays details about a specific user.</li>
+          <li><strong>tree /f</strong> – Graphically displays folder and files structure.</li>
+          <li><strong>rmdir</strong> – Removes a folder.</li>
+          <li><strong>where &lt;filename&gt;</strong> – Finds the full path of a file that exists in directories listed in the PATH variable.</li>
+          <li><strong>ren &lt;oldfilename.ext&gt; &lt;newfilename.ext&gt;</strong> – Renames a file.</li>
+        </ul>
+      </div>
+
+      <div class="bg-gray-800 p-4 rounded-md">
+        <h3 class="text-xl font-bold mb-2">How to Open Command Prompt in Windows</h3>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Search for <strong>"cmd"</strong> in the Start Menu and press Enter.</li>
+          <li>Press <kbd>Win + R</kbd>, type <code>cmd</code>, and press Enter.</li>
+          <li>Right-click Command Prompt and choose <strong>"Run as Administrator"</strong> to open with admin privileges.</li>
+        </ul>
+      </div>
+
+      <div class="bg-gray-800 p-4 rounded-md">
+        <h3 class="text-xl font-bold mb-2">Additional!</h3>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Try our <kbd>Command Line Simulator!</kbd> </li>
+          <li>Try doing <strong>"dir"</strong> then <strong>"mkdir NewFolder"</strong> then <strong>"dir"</strong> again (due to being a simulator, only this command works!)</li>
+          <li>Try doing <strong>"echo Hello World!"</strong> (due to being a simulator, only this command works!)</li>
+          <li>Try doing <strong>"help"</strong> when you're lost! It's ok^^</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Simulated Command Prompt -->
+    <div class="mt-10 bg-gray-900 p-5 rounded-md">
+      <h3 class="text-lg font-semibold mb-4">💻 Try it Yourself: Command Line Simulator</h3>
+      <div id="output" class="whitespace-pre-wrap text-gray-300 mb-2">Welcome to the Command Line Simulator!
+      Type <code>help</code> to begin.</div>
+      <div class="flex items-center">
+        <span class="text-gray-400 mr-2">C:\Users\Student&gt;</span>
+        <input id="cli-input" type="text" class="bg-transparent border-none outline-none text-gray-300 flex-1" autofocus />
+      </div>
+    </div>
+
+    <!-- Proceed Button -->
+    <div class="text-center mt-6">
+      <button class="bg-gray-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-500 transition" onclick="goToQuiz()">Proceed to Quiz</button>
+    </div>
+  </main>
+
+  <script>
+    function goToQuiz() {
+      window.location.href = "chapter1-posttest.html";
+    }
+
+    const output = document.getElementById('output');
+    const input = document.getElementById('cli-input');
+    const promptLabel = "C:\\Users\\Student>";
+    let directories = ['Documents', 'Downloads', 'Pictures', 'Desktop']; // Initial directory list
+    let files = ['file1.txt', 'file2.txt']; // Initial files for copy and delete commands
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const command = input.value.trim().toLowerCase();
+        output.innerHTML += `\n${promptLabel} ${command}`;
+        input.value = '';
+
+        let response = '';
+        const commandParts = command.split(' ');
+        const folderName = commandParts[1];  // Grab folder name if provided for mkdir
+        const fileName = commandParts[1];   // Grab file name for copy, delete, and type commands
+
+        switch (commandParts[0]) {
+          case 'help':
+            response = `Available commands:
+- whoami       → Show current user
+- cls          → Clear the screen
+- mkdir <name> → Create new folder (e.g., mkdir NewFolder)
+- dir          → List directory contents
+- echo         → Display a message (e.g., echo Hello!)
+- cd <dir>     → Change directories (e.g., cd Documents)
+- exit         → Exit the Command Prompt simulator
+- copy <source> <destination> → Copy files
+- del <filename> → Delete a file
+- type <filename> → Display the contents of a file
+- sfc /scannow → Scans and repairs corrupted system files
+- systeminfo   → Gives a detailed system summary
+- chkdsk       → Checks disk for errors
+- net user     → Lists users
+- net user <username> → Details about a specific user
+- tree /f      → Graphically displays folder and file structure
+- rmdir        → Removes a folder
+- where <filename> → Finds the full path of a file
+- ren <oldfilename.ext> <newfilename.ext> → Renames a file`;
+            break;
+          case 'whoami':
+            response = 'student-user';
+            break;
+          case 'mkdir':
+            if (folderName) {
+              directories.push(folderName);  // Add the new folder to the directory list
+              response = `Folder "${folderName}" created successfully!`;
+            } else {
+              response = `'mkdir' requires a folder name. E.g., mkdir NewFolder`;
+            }
+            break;
+          case 'dir':
+            response = 'Directory listing:\n' + directories.join('\n- ');
+            break;
+          case 'echo':
+            response = 'Hello, World!';
+            break;
+          case 'cls':
+            output.innerHTML = '';
+            return;
+          case 'cd':
+            if (folderName) {
+              response = `Changed directory to ${folderName}`;
+            } else {
+              response = `'cd' requires a directory name. E.g., cd Documents`;
+            }
+            break;
+          case 'exit':
+            window.location.href = 'index.html';
+            return;
+          case 'copy':
+            if (commandParts[1] && commandParts[2]) {
+              response = `File copied from ${commandParts[1]} to ${commandParts[2]}`;
+            }
+            break;
+          case 'del':
+            if (files.includes(fileName)) {
+              files = files.filter(f => f !== fileName);
+              response = `File "${fileName}" deleted`;
+            } else {
+              response = `File "${fileName}" not found`;
+            }
+            break;
+          case 'type':
+            if (files.includes(fileName)) {
+              response = `Contents of ${fileName}:\nHello, this is a text file.`;
+            } else {
+              response = `File "${fileName}" not found`;
+            }
+            break;
+          default:
+            response = `'${command}' is not recognized as a command. Type 'help' for a list of available commands.`;
+            break;
+        }
+
+        output.innerHTML += `\n${response}`;
+        output.scrollTop = output.scrollHeight; // Auto-scroll to bottom
+      }
+    });
+  </script>
+</body>
+</html>

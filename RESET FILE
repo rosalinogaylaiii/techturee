@@ -1,0 +1,4 @@
+ // Reset progress so only Chapter 1 is accessible
+    localStorage.removeItem("chapter1Complete");
+    localStorage.removeItem("chapter2Complete");
+    localStorage.removeItem("chapter3Complete");
